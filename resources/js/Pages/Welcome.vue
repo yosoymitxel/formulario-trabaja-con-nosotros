@@ -1,20 +1,49 @@
 <template>
-    <div class="w-screen overflow-x-hidden">
+    <header class='flex p-6 bg-blue-400 font-[sans-serif] min-h-[70px] tracking-wide relative z-50'>
+        <div class='flex flex-wrap items-center justify-between gap-5 w-full'>
+            <a href="javascript:void(0)" class="font-bold text-white text-lg"> <i class="fa-solid fa-circle text-blue-800"></i> <span class="text-blue-800">N</span>test
+            </a>
+
+            <div id="collapseMenu" v-if="collapseMenu">
+                <button id="toggleClose" @click="toggleCollapseMenu" class='lg:hidden fixed top-2 right-4 z-[100] rounded-full p-3'>
+                </button>
+
+                <ul
+                    class='lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50'>
+                    <li class='mb-6 hidden max-lg:block'>
+                        <a href="javascript:void(0)" class="font-bold text-lg"> <i class="fa-solid fa-circle text-blue-800"></i> <span class="text-blue-800">N</span>test
+                        </a>
+                    </li>
+                    <li class='max-lg:border-b border-gray-300 max-lg:py-3 px-3'>
+                        <a href='/'
+                           class='hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]'>Trabaja con nosotros</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class='flex max-lg:ml-auto space-x-3'>
+                <button id="toggleOpen" @click="toggleCollapseMenu" >
+                    <i class="text-blue-800 fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main class="w-screen overflow-x-hidden">
         <div>
             <div id="contenedor-cabecera" class="bg-sky-100" >
                 <div class="py-10 px-4">
-                    <h2 class="text-4xl font-bold mb-4 text-blue-900">Trabajá con nosotros</h2>
+                    <h2 class="text-4xl  mb-4 text-blue-900 font-black">Trabajá con nosotros</h2>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
                 </div>
             </div>
 
             <div class="w-screen p-4 flex justify-center">
-                <form @submit.prevent="handleSubmit" class="w-full container">
+                <form @submit.prevent="handleSubmit" class="w-full container mb-6">
                     <div id="contenedor-datos-personales" class="flex flex-col mb-4">
                         <h3 class="text-2xl  text-blue-500">Datos Personales</h3>
 
                         <div class="flex flex-col">
-                            <label for="nombre" class="mt-4 mb-2 font-bold text-blue-900">Nombre y Apellido</label>
+                            <label for="nombre" class="mt-4 mb-2 font-bold text-blue-900 font-black">Nombre y Apellido</label>
                             <input
                                 type="text"
                                 id="nombre"
@@ -25,7 +54,7 @@
                             >
                         </div>
                         <div class="flex flex-col">
-                            <label for="fechaNacimiento" class="mt-4 mb-2 font-bold text-blue-900">Fecha de Nacimiento</label>
+                            <label for="fechaNacimiento" class="mt-4 mb-2 font-bold text-blue-900 font-black">Fecha de Nacimiento</label>
                             <input
                                 type="date"
                                 id="fechaNacimiento"
@@ -36,7 +65,7 @@
                         </div>
 
                         <div class="flex flex-col">
-                            <label for="celular" class="mt-4 mb-2 font-bold text-blue-900">Número de Celular</label>
+                            <label for="celular" class="mt-4 mb-2 font-bold text-blue-900 font-black">Número de Celular</label>
                             <input
                                 type="tel"
                                 id="celular"
@@ -70,7 +99,7 @@
                                                 >
                                             </div>
                                             <div class="flex flex-col">
-                                                <label for="cargo" class="mt-4 mb-2 font-bold text-blue-900">Cargo Ocupado</label>
+                                                <label for="cargo" class="mt-4 mb-2 font-bold text-blue-900 font-black">Cargo Ocupado</label>
                                                 <input
                                                     type="text"
                                                     id="cargo"
@@ -82,7 +111,7 @@
                                             </div>
 
                                             <div class="flex flex-col">
-                                                <label for="fechaDesde" class="mt-4 mb-2 font-bold text-blue-900">Fecha desde</label>
+                                                <label for="fechaDesde" class="mt-4 mb-2 font-bold text-blue-900 font-black">Fecha desde</label>
                                                 <input
                                                     type="date"
                                                     id="fechaDesde"
@@ -93,7 +122,7 @@
                                             </div>
 
                                             <div class="flex flex-col">
-                                                <label for="fechaHasta" class="mt-4 mb-2 font-bold text-blue-900">Fecha hasta</label>
+                                                <label for="fechaHasta" class="mt-4 mb-2 font-bold text-blue-900 font-black">Fecha hasta</label>
                                                 <input
                                                     type="date"
                                                     id="fechaHasta"
@@ -176,7 +205,7 @@
                                 <div class="flex flex-col">
                                     <div id="contenedor-inputs-idiomas" v-if="idioma.editable">
                                         <div class="">
-                                            <div class="flex flex-col">
+                                            <div class="flex flex-col mb-4">
                                                 <label for="idioma" class="mb-2 font-bold text-blue-900">Idioma</label>
                                                 <select
                                                     v-model="idioma.idioma"
@@ -192,14 +221,14 @@
                                             </div>
 
                                             <div class="flex flex-col">
-                                                <label for="idioma" class="mb-2 font-bold text-blue-900">Idioma</label>
+                                                <label for="idioma" class="mb-2 font-bold text-blue-900">Nivel</label>
                                                 <select
                                                     v-model="idioma.nivel"
                                                     id="nivel"
                                                     class="border border-blue-300 p-3 rounded-lg focus:outline-none w-full cursor-pointer appearance-none"
                                                     required
                                                 >
-                                                    <option value="" disabled selected>Selecciona un idioma</option>
+                                                    <option value="" disabled selected>Selecciona un nivel</option>
                                                     <option v-for="(lnivel, index) in listas.nivel" :key="index" :value="lnivel.descripcion">
                                                         {{ lnivel.descripcion }}
                                                     </option>
@@ -277,9 +306,13 @@
             </div>
         </div>
 
-    </div>
-
-
+    </main>
+    <footer>
+        <div class="flex py-8 bg-blue-400 text-center justify-center">
+            <a href="javascript:void(0)" class="font-bold text-white text-2xl"> <i class="fa-solid fa-circle text-blue-800"></i> <span class="text-blue-800">N</span>test
+            </a>
+        </div>
+    </footer>
 </template>
 
 <script>
@@ -334,13 +367,17 @@
                             descripcion: 'Avanzado',
                         },
                     ],
-                }
+                },
+                collapseMenu: false,
             };
         },
         computed:{
 
         },
         methods: {
+            toggleCollapseMenu() {
+                this.collapseMenu = !this.collapseMenu;
+            },
             addExperiencia() {
 
                 let experiencia = this.usuario.experiencias;
@@ -406,4 +443,5 @@
             },
         },
     };
+
 </script>
