@@ -27,7 +27,7 @@ class CreateUsuariosTable extends Migration
             $table->json('idiomas')->nullable();
 
             // Archivo (string to store file path)
-            $table->string('archivo')->nullable();
+            $table->longText('archivo')->nullable(); // Change to longText for large files
 
             $table->timestamps();
         });

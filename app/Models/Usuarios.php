@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\AsJson;
+use Illuminate\Database\Eloquent\Casts\Json;
 
 class Usuarios extends Model
 {
@@ -16,8 +16,4 @@ class Usuarios extends Model
         'archivo',
     ];
 
-    protected $casts = [
-        'experiencias' => AsJson::class,
-        'idiomas' => AsJson::class,
-    ];
 }

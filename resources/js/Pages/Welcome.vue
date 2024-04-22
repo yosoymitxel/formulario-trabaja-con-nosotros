@@ -54,11 +54,11 @@
                             >
                         </div>
                         <div class="flex flex-col">
-                            <label for="fechaNacimiento" class="mt-4 mb-2 font-bold text-blue-900 font-black">Fecha de Nacimiento</label>
+                            <label for="fecha_nacimiento" class="mt-4 mb-2 font-bold text-blue-900 font-black">Fecha de Nacimiento</label>
                             <input
                                 type="date"
-                                id="fechaNacimiento"
-                                v-model="usuario.fechaNacimiento"
+                                id="fecha_nacimiento"
+                                v-model="usuario.fecha_nacimiento"
                                 class="border border-blue-300 p-3 rounded-lg"
                                 required
                             >
@@ -324,7 +324,7 @@
             return {
                 usuario: {
                     nombre: '',
-                    fechaNacimiento: this.toDay(),
+                    fecha_nacimiento: this.toDay(),
                     celular: '',
                     experiencias: [
                         {
@@ -438,20 +438,40 @@
             },
 
             handleSubmit() {
-                // Validate form data (optional)
-                // ...
+                const formData = new FormData();
+
+
+                // Append usuario data to FormData (including nested JSON)
+                Object.entries(this.usuario).forEach(([key, value]) => {
+                    if (key === 'experiencias' || key === 'idiomas') {
+                        formData.append(key, JSON.stringify(value)); // Convert arrays to JSON
+                    } else {
+                        formData.append(key, value);
+                    }
+                });
+
+                // Append file if selected
+                const file = this.$refs.fileInput.files[0];
+                if (file) {
+                    formData.append('archivo', file);
+                }
 
                 // Send the form data to the Laravel API
-                axios.post('/api/usuarios', this.usuario)
-                    .then(response => {
-                        console.log('Usuario creado:', response.data);
-                        // Handle successful response (e.g., clear form, show success message)
-                    })
-                    .catch(error => {
-                        console.error('Error al crear usuario:', error);
-                        // Handle error response (e.g., show error message)
-                    });
+                axios.post('/api/usuarios', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                    console.log('Usuario creado:', response.data);
+                    // Handle successful response (e.g., clear form, show success message)
+                })
+                .catch(error => {
+                    console.error('Error al crear usuario:', error);
+                    // Handle error response (e.g., show error message)
+                });
             },
+
             toDay(){
                 return new Date().toISOString().slice(0, 10)
             },
@@ -470,7 +490,11 @@
                 // Validate file type (optional)
                 const allowedExtensions = [".pdf", ".docx", ".doc"];
                 const extension = file.name.split(".").pop().toLowerCase();
-                if (!allowedExtensions.includes(extension)) {
+
+                console.log(extension)
+                console.log(file.name)
+
+                if (!allowedExtensions.includes('.'+extension)) {
                     alert("Formato de archivo no válido. Solo PDF y Word");
                     return;
                 }

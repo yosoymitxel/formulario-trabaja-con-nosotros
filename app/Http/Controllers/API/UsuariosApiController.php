@@ -45,11 +45,10 @@ class UsuariosApiController extends Controller
         $data = $request->all();
 
         // Handle file upload (if present)
+        // Handle file upload (if present)
         if ($request->hasFile('archivo')) {
-            $fileName = time() . '_' . $request->file('archivo')->getClientOriginalName();
-            $path = Storage::disk('your_storage_disk')->put('user-files', $request->file('archivo')); // Replace "your_storage_disk" with your configured disk name
-
-            $data['archivo'] = $path;
+            $file = $request->file('archivo');
+            $data['archivo'] = base64_encode(file_get_contents($file->getRealPath())); // Encode file content as base64
         }
 
         $user = Usuarios::create($data);
