@@ -35,15 +35,6 @@ Este proyecto consiste en un formulario web para la sección "Trabaja con nosotr
 1. Iniciar el servidor de Laravel: ```php artisan serve```
 2. La aplicación estará disponible en [http://localhost:8000](http://localhost:8000o)
 
-### Uso:
-
-* La aplicación tiene una interfaz sencilla para gestionar clientes, compañías y direcciones.
-* Puedes crear, leer, actualizar y eliminar clientes, así como gestionar sus compañías y direcciones asociadas.
-
-### Nota:
-
-Este proyecto es un ejemplo y puede ser modificado y ampliado según tus necesidades.
-
 ### Links
 
 * **Repositorio GitHub:** [https://github.com/yosoymitxel/formulario-trabaja-con-nosotros.git](https://github.com/yosoymitxel/formulario-trabaja-con-nosotros.git)
