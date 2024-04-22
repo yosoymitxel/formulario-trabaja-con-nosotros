@@ -185,7 +185,7 @@
                                                     required
                                                 >
                                                     <option value="" disabled selected>Selecciona un idioma</option>
-                                                    <option v-for="lidioma in listas.idiomas" :key="idioma.valor" :value="idioma.valor">
+                                                    <option v-for="(lidioma,index) in listas.idiomas" :key="index" :value="lidioma.descripcion">
                                                         {{ lidioma.descripcion }}
                                                     </option>
                                                 </select>
@@ -200,7 +200,7 @@
                                                     required
                                                 >
                                                     <option value="" disabled selected>Selecciona un idioma</option>
-                                                    <option v-for="lnivel in listas.nivel" :key="idioma.valor" :value="idioma.valor">
+                                                    <option v-for="(lnivel, index) in listas.nivel" :key="index" :value="lnivel.descripcion">
                                                         {{ lnivel.descripcion }}
                                                     </option>
                                                 </select>
@@ -250,6 +250,21 @@
                             <div>
                                 <i class="fas fa-plus"></i>
                             </div>
+                        </button>
+                    </div>
+
+                    <hr class="mb-8 mt-10 border-gray-300">
+
+                    <div id="contenedor-archivo" class="mb-8 text-center">
+                        <div class="mb-2">
+                            <h3 class="text-2xl text-blue-500">Adjuntar Archivo</h3>
+                            <p class="text-gray-400">(Formato PDF o Word, peso máximo 10mb)</p>
+                        </div>
+
+                        <button
+                            class="bg-blue-300 w-full text-blue-800 p-4 mt-4 font-bold rounded-md mt-2  "
+                        >
+                        <i class="fa-solid fa-paperclip"></i> Subir CV
                         </button>
                     </div>
 
@@ -365,26 +380,16 @@
 
                 console.log(this.usuario.idiomas)
 
-                let idiomas = this.usuario.idiomas;
-
-                if (idiomas.every(exp =>
-                    (!exp.idioma || exp.idioma == '') &&
-                    (!exp.nivel || exp.nivel == '')
-                )) {
-                    console.table(idiomas)
-                    return; // All fields empty, do nothing
-                }
-
                 // Get the last index after pushing the new experience
                 const lastIndex = this.usuario.idiomas.length - 1;
 
-console.log(lastIndex)
                 // Set editable to false for the last experience
                 this.usuario.idiomas[lastIndex].editable = false;
 
                 this.usuario.idiomas.push({
                     idioma: '',
                     nivel: '',
+                    editable: true,
                 });
             },
 
