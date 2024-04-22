@@ -293,6 +293,7 @@
                         <input type="file" id="fileInput" ref="fileInput" hidden @change="handleFileUpload" accept=".pdf,.docx,.doc" />
 
                         <button
+                            type="button"
                             class="bg-blue-300 w-full text-blue-800 p-4 mt-4 font-bold rounded-md mt-2"
                             @click="openFileInput"
                         >
@@ -311,6 +312,31 @@
 
     </main>
     <footer>
+        <div id="modal-content" class="fixed z-10 inset-0 overflow-y-auto " v-if="showComponent">
+            <div class="flex items-center justify-center min-height-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div class="fixed inset-0 transition-opacity">
+                    <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+                </div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>
+                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 flex flex-col items-center text-center">
+                        <div v-if="tituloModal === 'ok'" class="flex items-center justify-center w-20 h-20 rounded-full bg-green-200">
+                            <span  class="text-3xl text-green-500"><i class="fa fa-check"></i></span>
+                        </div>
+                        <div v-else-if="tituloModal === 'error'" class="flex items-center justify-center w-20 h-20 rounded-full bg-red-200" >
+                            <span class="text-3xl text-red-500"><i class="fa fa-times"></i></span>
+                        </div>
+                        <p class="my-4 text-sm text-blue-800 font-bold ">
+                            {{ mensajeModal }}
+                        </p>
+                        <button id="closeButton" type="button" @click="handleCloseClick" class="w-full inline-flex justify-center rounded-md bg-blue-800 px-4 py-2 text-white font-medium text-gray-700 hover:bg-blue-900 focus:outline-none ">
+                            Cerrar
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <div class="flex py-8 bg-blue-400 text-center justify-center">
             <a href="javascript:void(0)" class="font-bold text-white text-2xl"> <i class="fa-solid fa-circle text-blue-800"></i> <span class="text-blue-800">N</span>test
             </a>
@@ -319,6 +345,8 @@
 </template>
 
 <script>
+    import SimpleModal from '@/Components/SimpleModal.vue';
+
     export default {
         data() {
             return {
@@ -372,10 +400,13 @@
                     ],
                 },
                 collapseMenu: false,
+                tituloModal: '' ,
+                mensajeModal: '',
+                showComponent: false,
             };
         },
-        computed:{
-
+        components: {
+            SimpleModal,
         },
         methods: {
             toggleCollapseMenu() {
@@ -464,10 +495,16 @@
                 })
                 .then(response => {
                     console.log('Usuario creado:', response.data);
+                    this.tituloModal =  'ok'
+                    this.mensajeModal  = 'Tu postulación fue enviada con éxito'
+                    this.showComponent = true;
                     // Handle successful response (e.g., clear form, show success message)
                 })
                 .catch(error => {
                     console.error('Error al crear usuario:', error);
+                    this.tituloModal =  'Error'
+                    this.mensajeModal  = 'Tu postulación fue enviada con éxito'
+                    this.showComponent = true;
                     // Handle error response (e.g., show error message)
                 });
             },
@@ -502,6 +539,9 @@
                 // Handle file upload (replace with your logic)
                 console.log("File selected:", file);
                 // You can use FormData or other methods to upload the file to your server.
+            },
+            handleCloseClick() {
+                this.showComponent = false;
             },
         },
     };
