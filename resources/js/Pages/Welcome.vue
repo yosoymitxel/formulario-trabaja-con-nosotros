@@ -290,10 +290,13 @@
                             <p class="text-gray-400">(Formato PDF o Word, peso máximo 10mb)</p>
                         </div>
 
+                        <input type="file" id="fileInput" ref="fileInput" hidden @change="handleFileUpload" accept=".pdf,.docx,.doc" />
+
                         <button
-                            class="bg-blue-300 w-full text-blue-800 p-4 mt-4 font-bold rounded-md mt-2  "
+                            class="bg-blue-300 w-full text-blue-800 p-4 mt-4 font-bold rounded-md mt-2"
+                            @click="openFileInput"
                         >
-                        <i class="fa-solid fa-paperclip"></i> Subir CV
+                            <i class="fa-solid fa-paperclip"></i> Subir CV
                         </button>
                     </div>
 
@@ -440,6 +443,30 @@
             },
             toDay(){
                 return new Date().toISOString().slice(0, 10)
+            },
+            openFileInput() {
+                this.$refs.fileInput.click();
+            },
+            handleFileUpload(event) {
+                const file = event.target.files[0];
+
+                // Validate file size (optional)
+                if (file.size > 10 * 1024 * 1024) {
+                    alert("Archivo demasiado grande. Máximo 10mb");
+                    return;
+                }
+
+                // Validate file type (optional)
+                const allowedExtensions = [".pdf", ".docx", ".doc"];
+                const extension = file.name.split(".").pop().toLowerCase();
+                if (!allowedExtensions.includes(extension)) {
+                    alert("Formato de archivo no válido. Solo PDF y Word");
+                    return;
+                }
+
+                // Handle file upload (replace with your logic)
+                console.log("File selected:", file);
+                // You can use FormData or other methods to upload the file to your server.
             },
         },
     };
