@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\AsJson;
 
-class User extends Model
+class Usuarios extends Model
 {
     protected $fillable = [
         'nombre',

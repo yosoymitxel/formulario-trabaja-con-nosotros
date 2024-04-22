@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\User;
+use App\Models\Usuarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage; // For file storage
@@ -16,7 +16,7 @@ class UsuariosApiController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = Usuarios::all();
         return response()->json($users, 200);
     }
 
@@ -51,10 +51,9 @@ class UsuariosApiController extends Controller
             $data['archivo'] = $path;
         }
 
-        $user = User::create($data);
+        $user = Usuarios::create($data);
 
         return response()->json($user, 201);
     }
 
-    // ... other API methods for show, update, and delete users (optional)
 }
