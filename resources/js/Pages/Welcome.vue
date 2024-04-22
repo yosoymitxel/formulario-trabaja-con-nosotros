@@ -438,8 +438,19 @@
             },
 
             handleSubmit() {
-                // Validar datos y enviar formulario
-                console.log('Formulario enviado:', this.usuario);
+                // Validate form data (optional)
+                // ...
+
+                // Send the form data to the Laravel API
+                axios.post('/api/usuarios', this.usuario)
+                    .then(response => {
+                        console.log('Usuario creado:', response.data);
+                        // Handle successful response (e.g., clear form, show success message)
+                    })
+                    .catch(error => {
+                        console.error('Error al crear usuario:', error);
+                        // Handle error response (e.g., show error message)
+                    });
             },
             toDay(){
                 return new Date().toISOString().slice(0, 10)
